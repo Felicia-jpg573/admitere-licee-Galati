@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admitere Liceu Galați 2026–2027</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f3;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 0;
+    }
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 1.25rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header h1 { font-size: 20px; font-weight: 600; color: #1a1a1a; }
+    .header p { font-size: 13px; color: #666; margin-top: 2px; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem; }
+    .media-bar {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: flex-end;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .media-bar label { font-size: 13px; color: #555; display: block; margin-bottom: 5px; }
+    .media-bar input[type=number] {
+      width: 170px;
+      height: 38px;
+      border: 1px solid #d0d0d0;
+      border-radius: 7px;
+      padding: 0 12px;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.15s;
+    }
+    .media-bar input[type=number]:focus { border-color: #3b82f6; }
+    .ma-box {
+      background: #f0f6ff;
+      border-radius: 8px;
+      padding: 10px 18px;
+      display: none;
+    }
+    .ma-box .label { font-size: 12px; color: #555; }
+    .ma-box .value { font-size: 28px; font-weight: 600; color: #1a1a1a; line-height: 1.1; }
+    .ma-box .sub { font-size: 11px; color: #888; margin-top: 2px; }
+    .filters {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    select, input[type=text] {
+      height: 34px;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      padding: 0 10px;
+      font-size: 13px;
+      background: #fff;
+      outline: none;
+      transition: border 0.15s;
+    }
+    select:focus, input[type=text]:focus { border-color: #3b82f6; }
+    input[type=text] { width: 230px; }
+    .fav-label { font-size: 13px; color: #555; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    .stats-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+    .badge {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 6px;
+    }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-yellow { background: #fef9c3; color: #854d0e; }
+    .badge-red { background: #fee2e2; color: #991b1b; }
+    .table-wrap {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .table-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .table-toolbar span { font-size: 13px; color: #666; }
+    .btn {
+      height: 32px;
+      padding: 0 14px;
+      font-size: 13px;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .btn:hover { background: #f5f5f5; }
+    .tbl-container { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 860px; }
+    thead tr { background: #fafafa; }
+    th {
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #888;
+      text-align: left;
+      white-space: nowrap;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    th.sortable { cursor: pointer; }
+    th.sortable:hover { color: #333; }
+    th.center, td.center { text-align: center; }
+    td {
+      padding: 9px 12px;
+      font-size: 13px;
+      color: #333;
+      border-top: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+    tr:hover td { background: #fafafa; }
+    .fav-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 17px;
+      padding: 0;
+      line-height: 1;
+      color: #ccc;
+    }
+    .fav-btn.active { color: #f59e0b; }
+    .liceu-name { font-weight: 500; color: #1a1a1a; white-space: nowrap; }
+    .spec-cell { color: #333; }
+    .intensiv-badge {
+      font-size: 11px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 2px 7px;
+      border-radius: 5px;
+      margin-left: 5px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .medie-val { font-weight: 500; }
+    .diff-pos { color: #16a34a; font-weight: 500; }
+    .diff-neg { color: #dc2626; font-weight: 500; }
+    .diff-neu { color: #aaa; }
+    .cod-cell { font-family: monospace; color: #666; font-size: 12px; }
+    .status-badge { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 5px; white-space: nowrap; }
+    .status-admis { background: #dcfce7; color: #166534; }
+    .status-limita { background: #fef9c3; color: #854d0e; }
+    .status-sub { background: #fee2e2; color: #991b1b; }
+    .status-nec { background: #f3f4f6; color: #9ca3af; }
+    .action-btn {
+      background: none;
+      border: 1px solid #e5e5e5;
+      border-radius: 5px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #555;
+      margin-left: 3px;
+    }
+    .action-btn:hover { background: #f5f5f5; }
+    .empty-row td { text-align: center; color: #aaa; padding: 2.5rem; font-size: 14px; }
+    .footnote { font-size: 11px; color: #aaa; padding: 10px 16px; border-top: 1px solid #f0f0f0; }
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 500px;
+      max-width: 95vw;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .modal-header h2 { font-size: 17px; font-weight: 600; }
+    .modal-body { display: grid; gap: 10px; }
+    .modal-body label { font-size: 13px; color: #555; display: block; margin-bottom: 4px; }
+    .modal-body input {
+      width: 100%;
+      height: 36px;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      padding: 0 10px;
+      font-size: 14px;
+      outline: none;
+    }
+    .modal-body input:focus { border-color: #3b82f6; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 1.25rem; }
+    .btn-primary {
+      height: 34px;
+      padding: 0 16px;
+      font-size: 13px;
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: #fff;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: #1d4ed8; }
+    @media (max-width: 640px) {
+      .container { padding: 1rem; }
+      .header { padding: 1rem; }
+      .media-bar { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Admitere Liceu Galați 2026–2027</h1>
+  <p>Plan de școlarizare oficial · Media de admitere = media Evaluării Naționale</p>
+</div>
+
+<div class="container">
+
+  <div class="media-bar">
+    <div>
+      <label for="media-en">Media Evaluare Națională</label>
+      <input type="number" id="media-en" min="1" max="10" step="0.01" placeholder="ex: 8.75" oninput="updateCalc()">
+    </div>
+    <div class="ma-box" id="ma-box">
+      <div class="label">Media de admitere</div>
+      <div class="value" id="ma-val">—</div>
+      <div class="sub">= media EN (regulă 2026–2027)</div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <select id="filter-filiera" onchange="buildProfilFilter(); renderTable();">
+      <option value="">Toate filierele</option>
+      <option>Teoretică</option>
+      <option>Vocațională</option>
+      <option>Tehnologică</option>
+    </select>
+    <select id="filter-profil" onchange="renderTable()">
+      <option value="">Toate profilurile</option>
+    </select>
+    <select id="filter-status" onchange="renderTable()">
+      <option value="">Toate statusurile</option>
+      <option value="admis">Probabil admis</option>
+      <option value="limita">La limită (±0.30)</option>
+      <option value="sub">Sub medie</option>
+    </select>
+    <input type="text" id="filter-search" placeholder="Caută liceu sau specializare..." oninput="renderTable()">
+    <label class="fav-label">
+      <input type="checkbox" id="filter-fav" onchange="renderTable()"> Doar favorite
+    </label>
+  </div>
+
+  <div class="stats-bar" id="stats-bar"></div>
+
+  <div class="table-wrap">
+    <div class="table-toolbar">
+      <span id="count-label">— specializări</span>
+      <button class="btn" onclick="openAdd()">+ Adaugă manual</button>
+    </div>
+    <div class="tbl-container">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th class="sortable" onclick="sortBy('nume')">Liceu ↕</th>
+            <th>Filieră</th>
+            <th>Profil</th>
+            <th>Specializare</th>
+            <th class="sortable center" onclick="sortBy('locuri')">Locuri ↕</th>
+            <th class="sortable center" onclick="sortBy('medie')">Ultima medie ↕</th>
+            <th class="center">Diferență</th>
+            <th>Cod</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="footnote">
+      Ultima medie afișată provine din sesiunea 2025 și este orientativă. Mediile marcate „—" nu figurau în documentul oficial. Specializările vocaționale și unele tehnice au concurs specific — verifică la secretariatul liceului.
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">Adaugă specializare</h2>
+      <button class="btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <label>Numele liceului</label>
+        <input type="text" id="m-nume">
+      </div>
+      <div class="grid-2">
+        <div><label>Filieră</label><input type="text" id="m-filiera"></div>
+        <div><label>Profil</label><input type="text" id="m-profil"></div>
+      </div>
+      <div><label>Specializare</label><input type="text" id="m-spec"></div>
+      <div class="grid-3">
+        <div><label>Locuri</label><input type="number" id="m-locuri"></div>
+        <div><label>Ultima medie</label><input type="number" id="m-medie" step="0.01"></div>
+        <div><label>Cod</label><input type="text" id="m-cod"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Anulează</button>
+      <button class="btn-primary" onclick="saveModal()">Salvează</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const RAW = [
+  {nume:"CN Alexandru Ioan Cuza", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:9.00, cod:"101"},
+  {nume:"CN Alexandru Ioan Cuza", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:28, medie:9.00, cod:"102", intensiv:"Intensiv informatică"},
+  {nume:"CN Alexandru Ioan Cuza", filiera:"Teoretică", profil:"Umanist", spec:"Filologie", locuri:28, medie:8.80, cod:"103", intensiv:"Bilingv – Lb. engleză"},
+  {nume:"CN Alexandru Ioan Cuza", filiera:"Teoretică", profil:"Umanist", spec:"Filologie", locuri:28, medie:8.35, cod:"104", intensiv:"Bilingv – Lb. franceză"},
+  {nume:"CN Costache Negri", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:9.27, cod:"108"},
+  {nume:"CN Costache Negri", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:9.30, cod:"109", intensiv:"Bilingv – Lb. engleză"},
+  {nume:"CN Costache Negri", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:28, medie:9.60, cod:"110"},
+  {nume:"CN Costache Negri", filiera:"Teoretică", profil:"Umanist", spec:"Filologie", locuri:28, medie:8.85, cod:"111", intensiv:"Intensiv – Lb. franceză"},
+  {nume:"CN Costache Negri", filiera:"Teoretică", profil:"Umanist", spec:"Științe sociale", locuri:28, medie:9.22, cod:"112", intensiv:"Bilingv – Lb. engleză"},
+  {nume:"CN Costache Negri", filiera:"Vocațională", profil:"Pedagogic", spec:"Pedagogia educației timpurii", locuri:24, medie:0, cod:"—"},
+  {nume:"CN Costache Negri", filiera:"Vocațională", profil:"Pedagogic", spec:"Pedagogia învățământului primar", locuri:24, medie:0, cod:"—"},
+  {nume:"CN Mihail Kogălniceanu", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:9.07, cod:"113"},
+  {nume:"CN Mihail Kogălniceanu", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:9.12, cod:"114", intensiv:"Intensiv informatică"},
+  {nume:"CN Mihail Kogălniceanu", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:28, medie:9.25, cod:"115", intensiv:"Bilingv – Lb. engleză"},
+  {nume:"CN Mihail Kogălniceanu", filiera:"Teoretică", profil:"Umanist", spec:"Filologie", locuri:28, medie:8.87, cod:"116", intensiv:"Intensiv – Lb. engleză"},
+  {nume:"CN Vasile Alecsandri", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:56, medie:9.35, cod:"121"},
+  {nume:"CN Vasile Alecsandri", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:9.62, cod:"122", intensiv:"Intensiv informatică"},
+  {nume:"CN Vasile Alecsandri", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:14, medie:9.45, cod:"123", intensiv:"Bilingv – Lb. engleză"},
+  {nume:"CN Vasile Alecsandri", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:14, medie:9.30, cod:"124", intensiv:"Bilingv – Lb. germană"},
+  {nume:"CN Vasile Alecsandri", filiera:"Teoretică", profil:"Umanist", spec:"Filologie", locuri:28, medie:9.07, cod:"125", intensiv:"Bilingv – Lb. engleză"},
+  {nume:"CN Vasile Alecsandri", filiera:"Teoretică", profil:"Umanist", spec:"Științe sociale", locuri:28, medie:8.97, cod:"126", intensiv:"Intensiv – Lb. franceză"},
+  {nume:"LT Dunărea", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:8.37, cod:"135"},
+  {nume:"LT Dunărea", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:8.40, cod:"136", intensiv:"Intensiv informatică"},
+  {nume:"LT Dunărea", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:28, medie:8.52, cod:"137"},
+  {nume:"LT Dunărea", filiera:"Teoretică", profil:"Umanist", spec:"Științe sociale", locuri:28, medie:0, cod:"—"},
+  {nume:"LT Emil Racoviță", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:8.75, cod:"138"},
+  {nume:"LT Emil Racoviță", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:34, medie:8.47, cod:"139"},
+  {nume:"LT Emil Racoviță", filiera:"Teoretică", profil:"Umanist", spec:"Filologie", locuri:28, medie:8.55, cod:"140", intensiv:"Bilingv – Lb. engleză"},
+  {nume:"LT Mircea Eliade", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:8.20, cod:"141"},
+  {nume:"LT Mircea Eliade", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:28, medie:9.12, cod:"142"},
+  {nume:"LT Mircea Eliade", filiera:"Teoretică", profil:"Umanist", spec:"Filologie", locuri:28, medie:8.10, cod:"143"},
+  {nume:"LT Mircea Eliade", filiera:"Teoretică", profil:"Umanist", spec:"Științe sociale", locuri:28, medie:8.20, cod:"144"},
+  {nume:"LT Sfânta Maria", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:28, medie:8.00, cod:"145"},
+  {nume:"LT Sfânta Maria", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:28, medie:7.90, cod:"146"},
+  {nume:"LT Sfânta Maria", filiera:"Teoretică", profil:"Umanist", spec:"Filologie", locuri:28, medie:7.90, cod:"147"},
+  {nume:"LT Sfânta Maria", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician designer vestimentar", locuri:28, medie:7.32, cod:"457"},
+  {nume:"Liceul Cu Program Sportiv", filiera:"Teoretică", profil:"Real", spec:"Științe ale naturii", locuri:28, medie:7.77, cod:"127"},
+  {nume:"Liceul Cu Program Sportiv", filiera:"Vocațională", profil:"Sportiv", spec:"Instructor sportiv – Atletism", locuri:9, medie:0, cod:"—"},
+  {nume:"Liceul Cu Program Sportiv", filiera:"Vocațională", profil:"Sportiv", spec:"Instructor sportiv – Baschet", locuri:18, medie:0, cod:"—"},
+  {nume:"Liceul Cu Program Sportiv", filiera:"Vocațională", profil:"Sportiv", spec:"Instructor sportiv – Fotbal", locuri:14, medie:0, cod:"—"},
+  {nume:"Liceul Cu Program Sportiv", filiera:"Vocațională", profil:"Artistic", spec:"Dans clasic", locuri:72, medie:0, cod:"—"},
+  {nume:"Liceul De Arte Dimitrie Cuclin", filiera:"Vocațională", profil:"Artistic", spec:"Arhitectură, arte ambientale și design", locuri:12, medie:0, cod:"—"},
+  {nume:"Liceul De Arte Dimitrie Cuclin", filiera:"Vocațională", profil:"Artistic", spec:"Interpretare instrumentală", locuri:12, medie:0, cod:"—"},
+  {nume:"Liceul De Arte Dimitrie Cuclin", filiera:"Vocațională", profil:"Artistic", spec:"Interpretare vocală", locuri:12, medie:0, cod:"—"},
+  {nume:"Liceul De Arte Dimitrie Cuclin", filiera:"Vocațională", profil:"Artistic", spec:"Arte vizuale", locuri:24, medie:0, cod:"—"},
+  {nume:"Seminarul Teologic Sf. Andrei", filiera:"Vocațională", profil:"Teologic", spec:"Teologie ortodoxă", locuri:43, medie:0, cod:"—"},
+  {nume:"Seminarul Teologic Sf. Andrei", filiera:"Vocațională", profil:"Teologic", spec:"Patrimoniu cultural", locuri:24, medie:0, cod:"—"},
+  {nume:"Col. Ind. Alimentară Elena Doamna", filiera:"Tehnologică", profil:"Resurse naturale", spec:"Tehnician analize produse alimentare", locuri:140, medie:0, cod:"—"},
+  {nume:"Col. Ind. Alimentară Elena Doamna", filiera:"Tehnologică", profil:"Resurse naturale", spec:"Tehnician în industria alimentară", locuri:56, medie:3.00, cod:"400"},
+  {nume:"Col. Ind. Alimentară Elena Doamna", filiera:"Tehnologică", profil:"Resurse naturale", spec:"Tehnician în industria alimentară", locuri:56, medie:3.00, cod:"401"},
+  {nume:"Col. Ind. Alimentară Elena Doamna", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în gastronomie", locuri:56, medie:6.45, cod:"402"},
+  {nume:"Col. Economic Virgil Madgearu", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în activități de comerț", locuri:28, medie:7.70, cod:"403"},
+  {nume:"Col. Economic Virgil Madgearu", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în activități economice", locuri:28, medie:7.25, cod:"404"},
+  {nume:"Col. Economic Virgil Madgearu", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în activități economice", locuri:84, medie:7.25, cod:"404"},
+  {nume:"Col. Economic Virgil Madgearu", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în activități economice", locuri:56, medie:7.25, cod:"405"},
+  {nume:"Col. Economic Virgil Madgearu", filiera:"Tehnologică", profil:"Servicii", spec:"Organizator banqueting", locuri:28, medie:7.22, cod:"406"},
+  {nume:"Col. Economic Virgil Madgearu", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în gastronomie", locuri:28, medie:6.67, cod:"407"},
+  {nume:"Col. Economic Virgil Madgearu", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în turism", locuri:28, medie:0, cod:"408", intensiv:"Bilingv – Lb. franceză"},
+  {nume:"LT Transporturi Auto Traian Vuia", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician electronist auto", locuri:164, medie:0, cod:"—"},
+  {nume:"LT Transporturi Auto Traian Vuia", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician electronist auto", locuri:14, medie:2.65, cod:"416"},
+  {nume:"LT Transporturi Auto Traian Vuia", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician transporturi", locuri:28, medie:5.15, cod:"417"},
+  {nume:"LT Transporturi Auto Traian Vuia", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician transporturi", locuri:14, medie:5.15, cod:"418"},
+  {nume:"LT Transporturi Auto Traian Vuia", filiera:"Vocațională", profil:"Sportiv", spec:"Instructor sportiv – Rugby", locuri:24, medie:0, cod:"—"},
+  {nume:"LT Turism Dumitru Moțoc", filiera:"Tehnologică", profil:"Servicii", spec:"Organizator banqueting", locuri:28, medie:2.95, cod:"419"},
+  {nume:"LT Turism Dumitru Moțoc", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în gastronomie", locuri:28, medie:2.95, cod:"420"},
+  {nume:"LT Turism Dumitru Moțoc", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în gastronomie", locuri:28, medie:2.95, cod:"421"},
+  {nume:"LT Turism Dumitru Moțoc", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în hotelărie", locuri:28, medie:2.95, cod:"422"},
+  {nume:"LT Turism Dumitru Moțoc", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în turism", locuri:56, medie:2.95, cod:"423"},
+  {nume:"LT Anghel Saligny", filiera:"Teoretică", profil:"Umanist", spec:"Filologie", locuri:84, medie:7.10, cod:"128"},
+  {nume:"LT Anghel Saligny", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician desenator construcții și instalații", locuri:28, medie:0, cod:"424"},
+  {nume:"LT Anghel Saligny", filiera:"Tehnologică", profil:"Servicii", spec:"Coafor stilist", locuri:28, medie:0, cod:"451"},
+  {nume:"LT Anghel Saligny", filiera:"Tehnologică", profil:"Servicii", spec:"Coafor stilist", locuri:10, medie:0, cod:"452"},
+  {nume:"LT Anghel Saligny", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în gastronomie", locuri:9, medie:0, cod:"—"},
+  {nume:"LT Aurel Vlaicu", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician în instalații electrice", locuri:9, medie:0, cod:"702"},
+  {nume:"LT Aurel Vlaicu", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician în instalații electrice", locuri:10, medie:0, cod:"703"},
+  {nume:"LT Aurel Vlaicu", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician construcții navale", locuri:14, medie:0, cod:"704"},
+  {nume:"LT Aurel Vlaicu", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician construcții navale", locuri:14, medie:0, cod:"705"},
+  {nume:"LT Aurel Vlaicu", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician mecanic întreținere și reparații", locuri:14, medie:0, cod:"708"},
+  {nume:"LT Aurel Vlaicu", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician prelucrări la cald", locuri:10, medie:0, cod:"707"},
+  {nume:"LT Carol I", filiera:"Teoretică", profil:"Real", spec:"Matematică-informatică", locuri:34, medie:7.12, cod:"129"},
+  {nume:"LT Carol I", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician telecomunicații", locuri:28, medie:5.45, cod:"428"},
+  {nume:"LT Carol I", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician în automatizări", locuri:28, medie:5.45, cod:"427"},
+  {nume:"L. Marină N. Dumitrescu Maican", filiera:"Tehnologică", profil:"Servicii", spec:"Tehnician în activități economice", locuri:28, medie:5.00, cod:"439"},
+  {nume:"L. Marină N. Dumitrescu Maican", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician transporturi", locuri:14, medie:4.37, cod:"440"},
+  {nume:"LT Paul Dimo", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician energetician", locuri:28, medie:6.77, cod:"710"},
+  {nume:"LT Paul Dimo", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician în instalații electrice", locuri:28, medie:6.77, cod:"711"},
+  {nume:"LT Paul Dimo", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician în automatizări", locuri:28, medie:6.50, cod:"712"},
+  {nume:"LT Paul Dimo", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician proiectant CAD", locuri:28, medie:5.35, cod:"713"},
+  {nume:"LT Paul Dimo", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician multimedia", locuri:28, medie:6.30, cod:"714"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician în automatizări", locuri:140, medie:3.10, cod:"—"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician operator telematică", locuri:14, medie:3.10, cod:"718"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician operator telematică", locuri:14, medie:3.10, cod:"717"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician mecanic întreținere și reparații", locuri:14, medie:3.20, cod:"719"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician mecanic întreținere și reparații", locuri:14, medie:3.20, cod:"720"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician prelucrări mașini CNC", locuri:14, medie:3.20, cod:"721"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician proiectant CAD", locuri:14, medie:3.20, cod:"722"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician audio-video", locuri:14, medie:3.20, cod:"723"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Tehnic", spec:"Tehnician operator procesare text/imagine", locuri:14, medie:3.20, cod:"724"},
+  {nume:"LT Radu Negru", filiera:"Tehnologică", profil:"Resurse naturale", spec:"Tehnician ecolog și protecția calității mediului", locuri:14, medie:6.35, cod:"715"},
+];
+
+let liceeData = RAW.map(r => ({...r}));
+let favorites = new Set();
+try { favorites = new Set(JSON.parse(localStorage.getItem('fav_gl26') || '[]')); } catch(e){}
+let editIdx = null;
+let sortCol = null, sortAsc = false;
+
+function saveFav() { try { localStorage.setItem('fav_gl26', JSON.stringify([...favorites])); } catch(e){} }
+
+function getMA() {
+  const en = parseFloat(document.getElementById('media-en').value);
+  if (isNaN(en) || en < 1 || en > 10) return null;
+  return +en.toFixed(2);
+}
+
+function updateCalc() {
+  const ma = getMA();
+  const box = document.getElementById('ma-box');
+  if (ma !== null) {
+    box.style.display = 'block';
+    document.getElementById('ma-val').textContent = ma.toFixed(2);
+  } else {
+    box.style.display = 'none';
+  }
+  renderTable();
+}
+
+function buildProfilFilter() {
+  const f = document.getElementById('filter-filiera').value;
+  const profiluri = [...new Set(liceeData.filter(l => !f || l.filiera === f).map(l => l.profil).filter(Boolean))].sort();
+  const sel = document.getElementById('filter-profil');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">Toate profilurile</option>' + profiluri.map(p => `<option${p===cur?' selected':''}>${p}</option>`).join('');
+}
+
+function getStatus(l, ma) {
+  if (!ma || !l.medie || l.medie === 0) return 'nec';
+  const d = ma - l.medie;
+  if (d >= 0.31) return 'admis';
+  if (d >= -0.30) return 'limita';
+  return 'sub';
+}
+
+function renderTable() {
+  const ma = getMA();
+  const fFil = document.getElementById('filter-filiera').value;
+  const fPro = document.getElementById('filter-profil').value;
+  const fSt = document.getElementById('filter-status').value;
+  const fSearch = document.getElementById('filter-search').value.toLowerCase().trim();
+  const fFav = document.getElementById('filter-fav').checked;
+
+  const filtered = liceeData.filter((l, i) => {
+    if (fFil && l.filiera !== fFil) return false;
+    if (fPro && l.profil !== fPro) return false;
+    if (fFav && !favorites.has(i)) return false;
+    if (fSearch && !`${l.nume} ${l.spec}`.toLowerCase().includes(fSearch)) return false;
+    if (fSt && ma && getStatus(l, ma) !== fSt) return false;
+    return true;
+  });
+
+  const bar = document.getElementById('stats-bar');
+  if (ma) {
+    const a = filtered.filter(l => getStatus(l, ma) === 'admis').length;
+    const lim = filtered.filter(l => getStatus(l, ma) === 'limita').length;
+    const s = filtered.filter(l => getStatus(l, ma) === 'sub').length;
+    bar.innerHTML = `<span class="badge badge-green">${a} probabil admis</span><span class="badge badge-yellow">${lim} la limită</span><span class="badge badge-red">${s} sub medie</span>`;
+  } else { bar.innerHTML = ''; }
+
+  document.getElementById('count-label').textContent = `${filtered.length} specializări din ${liceeData.length} total`;
+
+  const tbody = document.getElementById('tbody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="11">Niciun rezultat pentru filtrele selectate.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(l => {
+    const origIdx = liceeData.indexOf(l);
+    const isFav = favorites.has(origIdx);
+    const st = ma ? getStatus(l, ma) : 'nec';
+    const stMap = { admis:['Admis','status-admis'], limita:['La limită','status-limita'], sub:['Sub medie','status-sub'], nec:['—','status-nec'] };
+    const [stLabel, stClass] = stMap[st];
+    const diff = (ma && l.medie > 0) ? (ma - l.medie).toFixed(2) : null;
+    const diffTxt = diff !== null ? (parseFloat(diff) > 0 ? `+${diff}` : diff) : '—';
+    const diffClass = diff === null ? 'diff-neu' : (parseFloat(diff) >= 0 ? 'diff-pos' : 'diff-neg');
+    const medieAfisat = l.medie > 0 ? l.medie.toFixed(2) : '—';
+    const intensivBadge = l.intensiv ? `<span class="intensiv-badge">${l.intensiv}</span>` : '';
+    return `<tr>
+      <td class="center"><button class="fav-btn${isFav?' active':''}" onclick="toggleFav(${origIdx})" aria-label="Favorite">♥</button></td>
+      <td class="liceu-name">${l.nume}</td>
+      <td>${l.filiera}</td>
+      <td>${l.profil}</td>
+      <td class="spec-cell">${l.spec}${intensivBadge}</td>
+      <td class="center">${l.locuri}</td>
+      <td class="center medie-val">${medieAfisat}</td>
+      <td class="center ${diffClass}">${diffTxt}</td>
+      <td class="cod-cell">${l.cod}</td>
+      <td><span class="status-badge ${stClass}">${stLabel}</span></td>
+      <td><button class="action-btn" onclick="openEdit(${origIdx})">✎</button><button class="action-btn" onclick="delRow(${origIdx})">✕</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function sortBy(col) {
+  if (sortCol === col) sortAsc = !sortAsc; else { sortCol = col; sortAsc = false; }
+  liceeData.sort((a, b) => {
+    const va = a[col]||0, vb = b[col]||0;
+    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return sortAsc ? va - vb : vb - va;
+  });
+  renderTable();
+}
+
+function toggleFav(idx) { if (favorites.has(idx)) favorites.delete(idx); else favorites.add(idx); saveFav(); renderTable(); }
+
+function openAdd() {
+  editIdx = null;
+  ['m-nume','m-filiera','m-profil','m-spec','m-locuri','m-medie','m-cod'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('modal-title').textContent = 'Adaugă specializare';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function openEdit(idx) {
+  editIdx = idx; const l = liceeData[idx];
+  document.getElementById('m-nume').value = l.nume||'';
+  document.getElementById('m-filiera').value = l.filiera||'';
+  document.getElementById('m-profil').value = l.profil||'';
+  document.getElementById('m-spec').value = l.spec||'';
+  document.getElementById('m-locuri').value = l.locuri||'';
+  document.getElementById('m-medie').value = l.medie||'';
+  document.getElementById('m-cod').value = l.cod||'';
+  document.getElementById('modal-title').textContent = 'Editează specializare';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function saveModal() {
+  const e = { nume:document.getElementById('m-nume').value, filiera:document.getElementById('m-filiera').value, profil:document.getElementById('m-profil').value, spec:document.getElementById('m-spec').value, locuri:parseInt(document.getElementById('m-locuri').value)||0, medie:parseFloat(document.getElementById('m-medie').value)||0, cod:document.getElementById('m-cod').value };
+  if (editIdx !== null) liceeData[editIdx] = e; else liceeData.push(e);
+  closeModal(); buildProfilFilter(); renderTable();
+}
+function delRow(idx) { if (!confirm('Ștergi această specializare?')) return; liceeData.splice(idx,1); favorites.delete(idx); saveFav(); buildProfilFilter(); renderTable(); }
+
+document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+buildProfilFilter();
+renderTable();
+</script>
+</body>
+</html>
