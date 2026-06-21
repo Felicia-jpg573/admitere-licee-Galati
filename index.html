@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admitere Liceu Galați 2026–2027</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -12,7 +11,6 @@
       background: #f5f5f3;
       color: #1a1a1a;
       min-height: 100vh;
-      padding: 0;
     }
     .header {
       background: #fff;
@@ -22,9 +20,9 @@
       top: 0;
       z-index: 100;
     }
-    .header h1 { font-size: 20px; font-weight: 600; color: #1a1a1a; }
+    .header h1 { font-size: 20px; font-weight: 600; }
     .header p { font-size: 13px; color: #666; margin-top: 2px; }
-    .container { max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem; }
+    .container { max-width: 1500px; margin: 0 auto; padding: 1.5rem 2rem; }
     .media-bar {
       background: #fff;
       border: 1px solid #e5e5e5;
@@ -38,129 +36,51 @@
     }
     .media-bar label { font-size: 13px; color: #555; display: block; margin-bottom: 5px; }
     .media-bar input[type=number] {
-      width: 170px;
-      height: 38px;
-      border: 1px solid #d0d0d0;
-      border-radius: 7px;
-      padding: 0 12px;
-      font-size: 15px;
-      outline: none;
-      transition: border 0.15s;
+      width: 170px; height: 38px; border: 1px solid #d0d0d0; border-radius: 7px;
+      padding: 0 12px; font-size: 15px; outline: none;
     }
     .media-bar input[type=number]:focus { border-color: #3b82f6; }
-    .ma-box {
-      background: #f0f6ff;
-      border-radius: 8px;
-      padding: 10px 18px;
-      display: none;
-    }
+    .ma-box { background: #f0f6ff; border-radius: 8px; padding: 10px 18px; display: none; }
     .ma-box .label { font-size: 12px; color: #555; }
-    .ma-box .value { font-size: 28px; font-weight: 600; color: #1a1a1a; line-height: 1.1; }
+    .ma-box .value { font-size: 28px; font-weight: 600; line-height: 1.1; }
     .ma-box .sub { font-size: 11px; color: #888; margin-top: 2px; }
     .filters {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 10px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      background: #fff; border: 1px solid #e5e5e5; border-radius: 10px;
+      padding: 1rem 1.5rem; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     }
     select, input[type=text] {
-      height: 34px;
-      border: 1px solid #d0d0d0;
-      border-radius: 6px;
-      padding: 0 10px;
-      font-size: 13px;
-      background: #fff;
-      outline: none;
-      transition: border 0.15s;
+      height: 34px; border: 1px solid #d0d0d0; border-radius: 6px; padding: 0 10px;
+      font-size: 13px; background: #fff; outline: none;
     }
     select:focus, input[type=text]:focus { border-color: #3b82f6; }
-    input[type=text] { width: 230px; }
+    input[type=text] { width: 200px; }
     .fav-label { font-size: 13px; color: #555; display: flex; align-items: center; gap: 6px; cursor: pointer; }
     .stats-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
-    .badge {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 5px 14px;
-      border-radius: 6px;
-    }
+    .badge { font-size: 12px; font-weight: 500; padding: 5px 14px; border-radius: 6px; }
     .badge-green { background: #dcfce7; color: #166534; }
     .badge-yellow { background: #fef9c3; color: #854d0e; }
     .badge-red { background: #fee2e2; color: #991b1b; }
-    .table-wrap {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .table-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 16px;
-      border-bottom: 1px solid #e5e5e5;
-    }
+    .layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1rem; align-items: start; }
+    @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } }
+    .table-wrap { background: #fff; border: 1px solid #e5e5e5; border-radius: 10px; overflow: hidden; }
+    .table-toolbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid #e5e5e5; }
     .table-toolbar span { font-size: 13px; color: #666; }
-    .btn {
-      height: 32px;
-      padding: 0 14px;
-      font-size: 13px;
-      border: 1px solid #d0d0d0;
-      border-radius: 6px;
-      background: #fff;
-      cursor: pointer;
-      transition: background 0.12s;
-    }
+    .btn { height: 32px; padding: 0 14px; font-size: 13px; border: 1px solid #d0d0d0; border-radius: 6px; background: #fff; cursor: pointer; }
     .btn:hover { background: #f5f5f5; }
     .tbl-container { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; min-width: 860px; }
+    table { width: 100%; border-collapse: collapse; min-width: 780px; }
     thead tr { background: #fafafa; }
-    th {
-      padding: 8px 12px;
-      font-size: 11px;
-      font-weight: 500;
-      color: #888;
-      text-align: left;
-      white-space: nowrap;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    th.sortable { cursor: pointer; }
-    th.sortable:hover { color: #333; }
+    th { padding: 8px 10px; font-size: 11px; font-weight: 500; color: #888; text-align: left; white-space: nowrap; border-bottom: 1px solid #e5e5e5; }
     th.center, td.center { text-align: center; }
-    td {
-      padding: 9px 12px;
-      font-size: 13px;
-      color: #333;
-      border-top: 1px solid #f0f0f0;
-      vertical-align: middle;
-    }
+    td { padding: 8px 10px; font-size: 13px; color: #333; border-top: 1px solid #f0f0f0; vertical-align: middle; }
+    tr.selected-row td { background: #eff6ff; }
     tr:hover td { background: #fafafa; }
-    .fav-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 17px;
-      padding: 0;
-      line-height: 1;
-      color: #ccc;
-    }
-    .fav-btn.active { color: #f59e0b; }
-    .liceu-name { font-weight: 500; color: #1a1a1a; white-space: nowrap; }
-    .spec-cell { color: #333; }
-    .intensiv-badge {
-      font-size: 11px;
-      background: #eff6ff;
-      color: #1d4ed8;
-      padding: 2px 7px;
-      border-radius: 5px;
-      margin-left: 5px;
-      white-space: nowrap;
-      display: inline-block;
-    }
+    tr.selected-row:hover td { background: #e3effe; }
+    .sel-btn { font-size: 12px; padding: 3px 9px; border-radius: 6px; border: 1px solid #d0d0d0; background: #fff; cursor: pointer; }
+    .sel-btn.active { background: #2563eb; color: #fff; border: none; }
+    .liceu-name { font-weight: 500; white-space: nowrap; }
+    .intensiv-badge { font-size: 10px; background: #eff6ff; color: #1d4ed8; padding: 2px 6px; border-radius: 5px; margin-left: 4px; white-space: nowrap; display: inline-block; }
     .medie-val { font-weight: 500; }
     .diff-pos { color: #16a34a; font-weight: 500; }
     .diff-neg { color: #dc2626; font-weight: 500; }
@@ -171,71 +91,25 @@
     .status-limita { background: #fef9c3; color: #854d0e; }
     .status-sub { background: #fee2e2; color: #991b1b; }
     .status-nec { background: #f3f4f6; color: #9ca3af; }
-    .action-btn {
-      background: none;
-      border: 1px solid #e5e5e5;
-      border-radius: 5px;
-      padding: 3px 8px;
-      cursor: pointer;
-      font-size: 13px;
-      color: #555;
-      margin-left: 3px;
-    }
-    .action-btn:hover { background: #f5f5f5; }
-    .empty-row td { text-align: center; color: #aaa; padding: 2.5rem; font-size: 14px; }
     .footnote { font-size: 11px; color: #aaa; padding: 10px 16px; border-top: 1px solid #f0f0f0; }
-    /* Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: #fff;
-      border-radius: 12px;
-      padding: 1.5rem;
-      width: 500px;
-      max-width: 95vw;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-    }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .modal-header h2 { font-size: 17px; font-weight: 600; }
-    .modal-body { display: grid; gap: 10px; }
-    .modal-body label { font-size: 13px; color: #555; display: block; margin-bottom: 4px; }
-    .modal-body input {
-      width: 100%;
-      height: 36px;
-      border: 1px solid #d0d0d0;
-      border-radius: 6px;
-      padding: 0 10px;
-      font-size: 14px;
-      outline: none;
-    }
-    .modal-body input:focus { border-color: #3b82f6; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 1.25rem; }
-    .btn-primary {
-      height: 34px;
-      padding: 0 16px;
-      font-size: 13px;
-      border: none;
-      border-radius: 6px;
-      background: #2563eb;
-      color: #fff;
-      cursor: pointer;
-    }
-    .btn-primary:hover { background: #1d4ed8; }
-    @media (max-width: 640px) {
-      .container { padding: 1rem; }
-      .header { padding: 1rem; }
-      .media-bar { padding: 1rem; }
-    }
+    .fisa-panel { background: #f0f0ee; border-radius: 10px; padding: 1rem; position: sticky; top: 90px; }
+    .fisa-panel h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .fisa-panel .hint { font-size: 12px; color: #666; margin-bottom: 10px; }
+    .fisa-list { display: flex; flex-direction: column; gap: 6px; max-height: 480px; overflow-y: auto; margin-bottom: 12px; }
+    .fisa-empty { font-size: 13px; color: #999; padding: 1.5rem 0; text-align: center; }
+    .fisa-warning { background: #fef9c3; color: #854d0e; border-radius: 7px; padding: 8px 12px; font-size: 12px; margin-bottom: 10px; display: none; }
+    .fisa-item { display: flex; align-items: center; gap: 6px; background: #fff; border-radius: 7px; padding: 7px 9px; border: 1px solid #e5e5e5; }
+    .fisa-item .pos { font-size: 12px; font-weight: 600; color: #666; width: 20px; }
+    .fisa-item .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .fisa-item .info { flex: 1; min-width: 0; }
+    .fisa-item .info p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fisa-item .info .nume { font-size: 12px; font-weight: 500; }
+    .fisa-item .info .spec { font-size: 11px; color: #777; }
+    .mini-btn { font-size: 11px; padding: 2px 6px; border: 1px solid #d0d0d0; border-radius: 5px; background: #fff; cursor: pointer; }
+    .mini-btn:disabled { opacity: 0.3; cursor: default; }
+    .export-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .export-row .btn { flex: 1; }
+    .clear-btn { font-size: 12px; padding: 5px 10px; margin-top: 6px; width: 100%; }
   </style>
 </head>
 <body>
@@ -277,70 +151,80 @@
     </select>
     <input type="text" id="filter-search" placeholder="Caută liceu sau specializare..." oninput="renderTable()">
     <label class="fav-label">
-      <input type="checkbox" id="filter-fav" onchange="renderTable()"> Doar favorite
+      <input type="checkbox" id="filter-selected" onchange="renderTable()"> Doar selectate
     </label>
   </div>
 
   <div class="stats-bar" id="stats-bar"></div>
 
-  <div class="table-wrap">
-    <div class="table-toolbar">
-      <span id="count-label">— specializări</span>
-      <button class="btn" onclick="openAdd()">+ Adaugă manual</button>
+  <div class="layout">
+    <div class="table-wrap">
+      <div class="table-toolbar">
+        <span id="count-label">— specializări</span>
+        <button class="btn" onclick="openAdd()">+ Adaugă manual</button>
+      </div>
+      <div class="tbl-container">
+        <table>
+          <thead>
+            <tr>
+              <th class="center">Fișă</th>
+              <th>Liceu</th>
+              <th>Filieră</th>
+              <th>Profil</th>
+              <th>Specializare</th>
+              <th class="center">Locuri</th>
+              <th class="center">Ultima medie</th>
+              <th class="center">Diferență</th>
+              <th>Cod</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="footnote">
+        Ultima medie afișată provine din sesiunea 2025 și este orientativă. Mediile marcate „—" nu figurau în documentul oficial. Specializările vocaționale și unele tehnice au concurs specific — verifică la secretariatul liceului.
+      </div>
     </div>
-    <div class="tbl-container">
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th class="sortable" onclick="sortBy('nume')">Liceu ↕</th>
-            <th>Filieră</th>
-            <th>Profil</th>
-            <th>Specializare</th>
-            <th class="sortable center" onclick="sortBy('locuri')">Locuri ↕</th>
-            <th class="sortable center" onclick="sortBy('medie')">Ultima medie ↕</th>
-            <th class="center">Diferență</th>
-            <th>Cod</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
-    </div>
-    <div class="footnote">
-      Ultima medie afișată provine din sesiunea 2025 și este orientativă. Mediile marcate „—" nu figurau în documentul oficial. Specializările vocaționale și unele tehnice au concurs specific — verifică la secretariatul liceului.
+
+    <div class="fisa-panel">
+      <h3>Fișa ta de opțiuni</h3>
+      <p class="hint">Ordinea de aici = ordinea de prioritate pe fișa oficială. Prima opțiune e cea mai dorită.</p>
+      <div class="fisa-list" id="fisa-list"></div>
+      <div class="fisa-empty" id="fisa-empty">Nu ai selectat încă nicio opțiune. Apasă „+” pe rândurile din tabel.</div>
+      <div class="fisa-warning" id="fisa-warning"></div>
+      <div class="export-row">
+        <button class="btn" onclick="exportFisaText()">Export fișă (format minister)</button>
+        <button class="btn" onclick="exportDetaliiCSV()">Export detalii (CSV)</button>
+      </div>
+      <button class="btn clear-btn" onclick="clearSelection()">Golește selecția</button>
     </div>
   </div>
 
 </div>
 
-<!-- Modal -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 id="modal-title">Adaugă specializare</h2>
+<div class="modal-overlay" id="modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:200; align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:12px; padding:1.5rem; width:500px; max-width:95vw;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+      <h2 style="font-size:17px; font-weight:600;">Adaugă specializare</h2>
       <button class="btn" onclick="closeModal()">✕</button>
     </div>
-    <div class="modal-body">
-      <div>
-        <label>Numele liceului</label>
-        <input type="text" id="m-nume">
+    <div style="display:grid; gap:10px;">
+      <div><label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Numele liceului</label><input type="text" id="m-nume" style="width:100%; height:36px; border:1px solid #d0d0d0; border-radius:6px; padding:0 10px;"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div><label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Filieră</label><input type="text" id="m-filiera" style="width:100%; height:36px; border:1px solid #d0d0d0; border-radius:6px; padding:0 10px;"></div>
+        <div><label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Profil</label><input type="text" id="m-profil" style="width:100%; height:36px; border:1px solid #d0d0d0; border-radius:6px; padding:0 10px;"></div>
       </div>
-      <div class="grid-2">
-        <div><label>Filieră</label><input type="text" id="m-filiera"></div>
-        <div><label>Profil</label><input type="text" id="m-profil"></div>
-      </div>
-      <div><label>Specializare</label><input type="text" id="m-spec"></div>
-      <div class="grid-3">
-        <div><label>Locuri</label><input type="number" id="m-locuri"></div>
-        <div><label>Ultima medie</label><input type="number" id="m-medie" step="0.01"></div>
-        <div><label>Cod</label><input type="text" id="m-cod"></div>
+      <div><label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Specializare</label><input type="text" id="m-spec" style="width:100%; height:36px; border:1px solid #d0d0d0; border-radius:6px; padding:0 10px;"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+        <div><label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Locuri</label><input type="number" id="m-locuri" style="width:100%; height:36px; border:1px solid #d0d0d0; border-radius:6px; padding:0 10px;"></div>
+        <div><label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Ultima medie</label><input type="number" id="m-medie" step="0.01" style="width:100%; height:36px; border:1px solid #d0d0d0; border-radius:6px; padding:0 10px;"></div>
+        <div><label style="font-size:13px; color:#555; display:block; margin-bottom:4px;">Cod</label><input type="text" id="m-cod" style="width:100%; height:36px; border:1px solid #d0d0d0; border-radius:6px; padding:0 10px;"></div>
       </div>
     </div>
-    <div class="modal-footer">
+    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:1.25rem;">
       <button class="btn" onclick="closeModal()">Anulează</button>
-      <button class="btn-primary" onclick="saveModal()">Salvează</button>
+      <button class="btn" style="background:#2563eb; color:#fff; border:none;" onclick="saveModal()">Salvează</button>
     </div>
   </div>
 </div>
@@ -449,12 +333,11 @@ const RAW = [
 ];
 
 let liceeData = RAW.map(r => ({...r}));
-let favorites = new Set();
-try { favorites = new Set(JSON.parse(localStorage.getItem('fav_gl26') || '[]')); } catch(e){}
+let selection = [];
+try { selection = JSON.parse(localStorage.getItem('sel_gl26') || '[]'); } catch(e){}
 let editIdx = null;
-let sortCol = null, sortAsc = false;
 
-function saveFav() { try { localStorage.setItem('fav_gl26', JSON.stringify([...favorites])); } catch(e){} }
+function saveSel() { try { localStorage.setItem('sel_gl26', JSON.stringify(selection)); } catch(e){} }
 
 function getMA() {
   const en = parseFloat(document.getElementById('media-en').value);
@@ -472,6 +355,7 @@ function updateCalc() {
     box.style.display = 'none';
   }
   renderTable();
+  renderFisa();
 }
 
 function buildProfilFilter() {
@@ -483,27 +367,115 @@ function buildProfilFilter() {
 }
 
 function getStatus(l, ma) {
-  if (!ma || !l.medie || l.medie === 0) return 'nec';
+  if (!ma || !l.medie || l.medie === 0) return 'necunoscut';
   const d = ma - l.medie;
   if (d >= 0.31) return 'admis';
   if (d >= -0.30) return 'limita';
   return 'sub';
 }
 
+function isSelected(idx) { return selection.includes(idx); }
+
+function toggleSelect(idx) {
+  const pos = selection.indexOf(idx);
+  if (pos >= 0) selection.splice(pos, 1);
+  else selection.push(idx);
+  saveSel();
+  renderTable();
+  renderFisa();
+}
+
+function moveSel(pos, dir) {
+  const newPos = pos + dir;
+  if (newPos < 0 || newPos >= selection.length) return;
+  [selection[pos], selection[newPos]] = [selection[newPos], selection[pos]];
+  saveSel();
+  renderFisa();
+}
+
+function removeSel(pos) {
+  selection.splice(pos, 1);
+  saveSel();
+  renderTable();
+  renderFisa();
+}
+
+function clearSelection() {
+  if (selection.length && !confirm('Golești toată fișa de opțiuni?')) return;
+  selection = [];
+  saveSel();
+  renderTable();
+  renderFisa();
+}
+
+function renderFisa() {
+  const ma = getMA();
+  const list = document.getElementById('fisa-list');
+  const empty = document.getElementById('fisa-empty');
+  const warnBox = document.getElementById('fisa-warning');
+
+  if (selection.length === 0) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    warnBox.style.display = 'none';
+    return;
+  }
+  empty.style.display = 'none';
+
+  let warnMsg = '';
+  if (ma) {
+    for (let i = 0; i < selection.length; i++) {
+      const stI = getStatus(liceeData[selection[i]], ma);
+      if (stI === 'sub' || stI === 'limita') {
+        for (let j = i + 1; j < selection.length; j++) {
+          const stJ = getStatus(liceeData[selection[j]], ma);
+          if (stJ === 'admis') {
+            warnMsg = `Opțiunea ${i+1} este nesigură, dar opțiunea ${j+1} (mai sigură) e poziționată după ea. Verifică dacă ordinea reflectă cu adevărat preferințele tale.`;
+            break;
+          }
+        }
+      }
+      if (warnMsg) break;
+    }
+  }
+  warnBox.style.display = warnMsg ? 'block' : 'none';
+  if (warnMsg) warnBox.textContent = warnMsg;
+
+  list.innerHTML = selection.map((idx, pos) => {
+    const l = liceeData[idx];
+    const st = ma ? getStatus(l, ma) : 'necunoscut';
+    let dot = '#bbb';
+    if (st === 'admis') dot = '#16a34a';
+    else if (st === 'limita') dot = '#ca8a04';
+    else if (st === 'sub') dot = '#dc2626';
+    return `<div class="fisa-item">
+      <span class="pos">${pos+1}.</span>
+      <span class="dot" style="background:${dot};"></span>
+      <div class="info">
+        <p class="nume">${l.nume}</p>
+        <p class="spec">${l.spec} · cod ${l.cod}</p>
+      </div>
+      <button class="mini-btn" onclick="moveSel(${pos},-1)" ${pos===0?'disabled':''}>↑</button>
+      <button class="mini-btn" onclick="moveSel(${pos},1)" ${pos===selection.length-1?'disabled':''}>↓</button>
+      <button class="mini-btn" onclick="removeSel(${pos})">✕</button>
+    </div>`;
+  }).join('');
+}
+
 function renderTable() {
   const ma = getMA();
-  const fFil = document.getElementById('filter-filiera').value;
-  const fPro = document.getElementById('filter-profil').value;
-  const fSt = document.getElementById('filter-status').value;
+  const fFiliera = document.getElementById('filter-filiera').value;
+  const fProfil = document.getElementById('filter-profil').value;
+  const fStatus = document.getElementById('filter-status').value;
   const fSearch = document.getElementById('filter-search').value.toLowerCase().trim();
-  const fFav = document.getElementById('filter-fav').checked;
+  const fSel = document.getElementById('filter-selected').checked;
 
   const filtered = liceeData.filter((l, i) => {
-    if (fFil && l.filiera !== fFil) return false;
-    if (fPro && l.profil !== fPro) return false;
-    if (fFav && !favorites.has(i)) return false;
+    if (fFiliera && l.filiera !== fFiliera) return false;
+    if (fProfil && l.profil !== fProfil) return false;
+    if (fSel && !isSelected(i)) return false;
     if (fSearch && !`${l.nume} ${l.spec}`.toLowerCase().includes(fSearch)) return false;
-    if (fSt && ma && getStatus(l, ma) !== fSt) return false;
+    if (fStatus && ma && getStatus(l, ma) !== fStatus) return false;
     return true;
   });
 
@@ -519,79 +491,98 @@ function renderTable() {
 
   const tbody = document.getElementById('tbody');
   if (filtered.length === 0) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="11">Niciun rezultat pentru filtrele selectate.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; color:#aaa; padding:2rem;">Niciun rezultat pentru filtrele selectate.</td></tr>';
     return;
   }
 
   tbody.innerHTML = filtered.map(l => {
     const origIdx = liceeData.indexOf(l);
-    const isFav = favorites.has(origIdx);
-    const st = ma ? getStatus(l, ma) : 'nec';
-    const stMap = { admis:['Admis','status-admis'], limita:['La limită','status-limita'], sub:['Sub medie','status-sub'], nec:['—','status-nec'] };
+    const sel = isSelected(origIdx);
+    const selPos = sel ? selection.indexOf(origIdx) + 1 : null;
+    const st = ma ? getStatus(l, ma) : 'necunoscut';
+    const stMap = { admis:['Admis','status-admis'], limita:['La limită','status-limita'], sub:['Sub medie','status-sub'], necunoscut:['—','status-nec'] };
     const [stLabel, stClass] = stMap[st];
     const diff = (ma && l.medie > 0) ? (ma - l.medie).toFixed(2) : null;
     const diffTxt = diff !== null ? (parseFloat(diff) > 0 ? `+${diff}` : diff) : '—';
     const diffClass = diff === null ? 'diff-neu' : (parseFloat(diff) >= 0 ? 'diff-pos' : 'diff-neg');
     const medieAfisat = l.medie > 0 ? l.medie.toFixed(2) : '—';
     const intensivBadge = l.intensiv ? `<span class="intensiv-badge">${l.intensiv}</span>` : '';
-    return `<tr>
-      <td class="center"><button class="fav-btn${isFav?' active':''}" onclick="toggleFav(${origIdx})" aria-label="Favorite">♥</button></td>
+    return `<tr class="${sel ? 'selected-row' : ''}">
+      <td class="center"><button class="sel-btn ${sel?'active':''}" onclick="toggleSelect(${origIdx})">${sel ? '#'+selPos : '+'}</button></td>
       <td class="liceu-name">${l.nume}</td>
       <td>${l.filiera}</td>
       <td>${l.profil}</td>
-      <td class="spec-cell">${l.spec}${intensivBadge}</td>
+      <td>${l.spec}${intensivBadge}</td>
       <td class="center">${l.locuri}</td>
       <td class="center medie-val">${medieAfisat}</td>
       <td class="center ${diffClass}">${diffTxt}</td>
       <td class="cod-cell">${l.cod}</td>
       <td><span class="status-badge ${stClass}">${stLabel}</span></td>
-      <td><button class="action-btn" onclick="openEdit(${origIdx})">✎</button><button class="action-btn" onclick="delRow(${origIdx})">✕</button></td>
     </tr>`;
   }).join('');
 }
 
-function sortBy(col) {
-  if (sortCol === col) sortAsc = !sortAsc; else { sortCol = col; sortAsc = false; }
-  liceeData.sort((a, b) => {
-    const va = a[col]||0, vb = b[col]||0;
-    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
-    return sortAsc ? va - vb : vb - va;
-  });
-  renderTable();
-}
-
-function toggleFav(idx) { if (favorites.has(idx)) favorites.delete(idx); else favorites.add(idx); saveFav(); renderTable(); }
-
 function openAdd() {
   editIdx = null;
   ['m-nume','m-filiera','m-profil','m-spec','m-locuri','m-medie','m-cod'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('modal-title').textContent = 'Adaugă specializare';
-  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modal-overlay').style.display = 'flex';
 }
-function openEdit(idx) {
-  editIdx = idx; const l = liceeData[idx];
-  document.getElementById('m-nume').value = l.nume||'';
-  document.getElementById('m-filiera').value = l.filiera||'';
-  document.getElementById('m-profil').value = l.profil||'';
-  document.getElementById('m-spec').value = l.spec||'';
-  document.getElementById('m-locuri').value = l.locuri||'';
-  document.getElementById('m-medie').value = l.medie||'';
-  document.getElementById('m-cod').value = l.cod||'';
-  document.getElementById('modal-title').textContent = 'Editează specializare';
-  document.getElementById('modal-overlay').classList.add('open');
-}
-function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
 function saveModal() {
-  const e = { nume:document.getElementById('m-nume').value, filiera:document.getElementById('m-filiera').value, profil:document.getElementById('m-profil').value, spec:document.getElementById('m-spec').value, locuri:parseInt(document.getElementById('m-locuri').value)||0, medie:parseFloat(document.getElementById('m-medie').value)||0, cod:document.getElementById('m-cod').value };
-  if (editIdx !== null) liceeData[editIdx] = e; else liceeData.push(e);
-  closeModal(); buildProfilFilter(); renderTable();
+  const entry = { nume:document.getElementById('m-nume').value, filiera:document.getElementById('m-filiera').value, profil:document.getElementById('m-profil').value, spec:document.getElementById('m-spec').value, locuri:parseInt(document.getElementById('m-locuri').value)||0, medie:parseFloat(document.getElementById('m-medie').value)||0, cod:document.getElementById('m-cod').value };
+  liceeData.push(entry);
+  closeModal();
+  buildProfilFilter();
+  renderTable();
 }
-function delRow(idx) { if (!confirm('Ștergi această specializare?')) return; liceeData.splice(idx,1); favorites.delete(idx); saveFav(); buildProfilFilter(); renderTable(); }
 
 document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
 
+function downloadFile(filename, content, mime) {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function exportFisaText() {
+  if (selection.length === 0) { alert('Selectează cel puțin o opțiune înainte de export.'); return; }
+  let lines = [];
+  lines.push('FIȘA DE OPȚIUNI — ADMITERE LICEU 2026-2027');
+  lines.push('Ordinea de mai jos reprezintă ordinea descrescătoare a priorității, conform fișei oficiale a Ministerului Educației.');
+  lines.push('Transcrie codul din dreptul fiecărui număr direct în căsuțele corespunzătoare de pe fișa fizică.');
+  lines.push('');
+  selection.forEach((idx, pos) => {
+    const l = liceeData[idx];
+    lines.push(`${pos+1}. ${l.cod}`);
+  });
+  lines.push('');
+  lines.push(`Total opțiuni completate: ${selection.length}`);
+  downloadFile('fisa-optiuni-admitere.txt', lines.join('\n'), 'text/plain;charset=utf-8');
+}
+
+function exportDetaliiCSV() {
+  if (selection.length === 0) { alert('Selectează cel puțin o opțiune înainte de export.'); return; }
+  const ma = getMA();
+  let rows = [['Nr. ordine','Cod','Liceu','Filieră','Profil','Specializare','Locuri','Ultima medie 2025','Media mea','Diferență','Status']];
+  selection.forEach((idx, pos) => {
+    const l = liceeData[idx];
+    const diff = (ma && l.medie > 0) ? (ma - l.medie).toFixed(2) : '';
+    const st = ma ? getStatus(l, ma) : '';
+    const stLabel = { admis:'Probabil admis', limita:'La limită', sub:'Sub medie', necunoscut:'Necunoscut' }[st] || '';
+    rows.push([pos+1, l.cod, l.nume, l.filiera, l.profil, l.spec, l.locuri, l.medie>0?l.medie.toFixed(2):'', ma?ma.toFixed(2):'', diff, stLabel]);
+  });
+  const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  downloadFile('fisa-optiuni-detalii.csv', '\ufeff' + csv, 'text/csv;charset=utf-8');
+}
+
 buildProfilFilter();
 renderTable();
+renderFisa();
+updateCalc();
 </script>
 </body>
 </html>
